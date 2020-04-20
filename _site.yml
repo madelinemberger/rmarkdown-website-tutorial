@@ -11,7 +11,7 @@ navbar:
     - text: "Your Turn"
       href: your_turn.html
     - text: "Maddie's Page"
-      href: my_page_mads
+      href: my_page_mads.html
 output_dir: "."
 output:
   html_document:

@@ -6,8 +6,51 @@ output:
     toc_float: true
 ---
 
-## About Me
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+<center><img src="images/avatar.jpg" width="350px"></center>
+
+<br>  
+  
+## About Me
+
+<br>
+<br>
+
+<style>
+  .col3 {
+    columns: 3 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 3 200px; /* chrome, safari */
+    -moz-columns: 3 200px;    /* firefox */
+  }
+</style>
+ 
+
+<div class="col3">
+**Column 1**
+
+- note `<div class="col2">` and `</div>`
+- what beautiful bullet points
+<br>
+<br>
+
+**Column 2**
+
+- I have 3 bullet points here
+- which means to align with the left column
+- I added a `<br>` there
+<br>
+<br>
+
+**Column 3**
+
+- third
+
+
+<br>
+<br>
+
+</div>
+<br>
