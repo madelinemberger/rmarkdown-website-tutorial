@@ -1,0 +1,126 @@
+---
+title: "hi_map"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+
+
+library(tidyverse)
+library(sf)
+library(tmap)
+library(here)
+library(ggspatial)
+library(paletteer)
+
+lulc <- read_sf(dsn = ".", layer = "Land_Use_Land_Cover_LULC") %>% 
+  select(landcover)
+
+```
+
+
+```{r, results= 'hide', include = FALSE}
+
+#I am more interested in the natural land areas, so am going to combine the data based on some of the metadata categories
+lulc_simple_2 <- lulc %>% 
+  mutate(
+    landcover = case_when(
+      landcover %in% c("Residential",
+                       "Other Urban or Built-up Land", 
+                       "Commercial and Services", 
+                       "Industrial", 
+                       "Transportation, Communications and Utilities",
+                       "Mixed Urban or Built-up Land", 
+                       "Industrial and Commercial Complexes"   ) ~"Urban",
+      landcover %in% c("Cropland and Pasture", 
+                       "Orchards, Groves, Vineyards, Nurseries and Ornamental Horticultural Areas", 
+                       "Other Agricultural Land",
+                       "Confined Feeding Operations") ~ "Agricultural",
+      landcover %in% c("Herbaceous Rangeland",
+                       "Shrub and Brush Rangeland",
+                       "Mixed Rangeland") ~ "Rangeland",
+      landcover %in% c("Lakes",
+                       "Streams and Canals",
+                       "Reservoirs",
+                       "Bays and Estuaries") ~ "Waterways",
+      landcover %in% c("Mixed Barren Land",
+                       "Transitional Areas",
+                       "Bare Exposed Rock",
+                       "Sandy Areas Other than Beaches") ~ "Barren Land",
+      landcover %in% c("Nonforested Wetland",
+                       "Forested Wetland"
+                       ) ~ "Wetland",
+      TRUE ~ landcover) #keep the rest the same
+  ) %>% 
+  filter(landcover != 0)
+
+#unique(lulc_simple_2$landcover)
+
+#lulc_simple_2
+
+#plot(lulc_simple_2)
+
+
+```
+
+```{r, results = 'hide', include = FALSE}
+
+
+#get colors of palettes
+paletteer_d("calecopal::figmtn")
+paletteer_d("calecopal::agriculture")
+
+
+#how many land uses do I have?
+unique(lulc_simple_2$landcover)
+
+#build graph
+hawaii_all <- ggplot(data = lulc_simple_2)+
+  geom_sf(data = lulc_simple_2, 
+          color = NA, 
+          aes(fill = landcover))+
+  annotation_scale(location = "bl", 
+                   width_hint = 0.5) +
+    annotation_north_arrow(location = "bl", 
+                           which_north = "true", 
+         pad_x = unit(0.5, "cm"), 
+         pad_y = unit(0.5, "cm"),
+        style = north_arrow_fancy_orienteering)+
+  #scale_fill_paletteer_d("calecopal::figmtn")+
+  scale_fill_manual(breaks = c("Agricultural", 
+                               "Barren Land", 
+                               "Beaches",
+                               "Evergreen Forest Land",
+                               "Rangeland",
+                               "Wetland",
+                               "Waterways",
+                              "Urban",
+                              "Strip Mines, Quarries, and Gravel Pits"
+                               ),
+                    values = c("#E29244FF",
+                               "#FFAA00FF",
+                               "#D46F10FF",
+                               "#4CA49EFF",
+                               "#88B063FF",
+                               "#69B9FAFF",
+                               "#4B8FF7FF",
+                                "#6B6D9FFF",
+                                "#CECEB9FF"
+                              ))+
+  theme(panel.grid.major = element_line(color = gray(.1), 
+                                        linetype = "dashed", size = 0.1), 
+        panel.background = element_rect(fill = "aliceblue")
+  )+
+  labs(x = "Longitude", y = "Latitude")+
+  guides(fill = guide_legend(title = "Landcover"))
+
+```
+
+
+
+*References*  
+Land use/land cover data: http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc
+Watershed data: http://geoportal.hawaii.gov/datasets/watersheds

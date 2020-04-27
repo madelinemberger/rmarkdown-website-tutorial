@@ -14,45 +14,47 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br>  
   
-## About MeA
+### About Me
 
-
+I am currently finishing my Master's degree at the Bren School of Environmental Science and Management, while also working as an Ocean Health Index Fellow for the National Center of Ecological Synthesis and Analysis.
+<br>
+In my free time, I love to surf, swim and do art.
 
 <br>
-<br>
+
 
 <style>
-  .col3 {
-    columns: 3 200px;         /* number of columns and width in pixels*/
-    -webkit-columns: 3 200px; /* chrome, safari */
-    -moz-columns: 3 200px;    /* firefox */
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
   }
 </style>
  
 
-<div class="col3">
-**Column 1**
+<div class="col2">
+**Research interests**
 
-- note `<div class="col2">` and `</div>`
-- what beautiful bullet points
+- Conservation of wild land and seascapes
+- Sustainable food systems
+- Data science
 <br>
 <br>
 
-**Column 2**
+**Skills**
 
-- I have 3 bullet points here
-- which means to align with the left column
-- I added a `<br>` there
-<br>
-<br>
-
-**Column 3**
-
-- third
-
-
+- RStudio
+- Spatial Analysis
+- Spanish
 <br>
 <br>
 
 </div>
 <br>
+
+### Coming soon: A Cool Map
+<br>
+
+**A map of Hawaiian Land Use created for grauduate data analysis course**
+
+
